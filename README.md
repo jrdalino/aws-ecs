@@ -1,6 +1,6 @@
 # AWS ECS Fargate
 
-## Step 1 Create the ECS Fargate Cluster and CloudWatch Logs Group
+## Step 1: Create the ECS Fargate Cluster and CloudWatch Logs Group
 
 ### Step 1.1: Create ECS Cluster
 What is an ECS Cluster?

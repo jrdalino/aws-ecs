@@ -1,4 +1,4 @@
-# AWS ECS Fargate
+# AWS Elastic Container Service (ECS) Fargate
 
 ## Step 1: Create the ECS Fargate Cluster and CloudWatch Logs Group
 
@@ -8,7 +8,7 @@ What is an ECS Cluster?
 
 ```
 $ aws ecs create-cluster \
---cluster-name calculator-awsecs
+--cluster-name myproject-ecs
 ```
 
 ### Step 1.2: Create Cloudwatch Logs Group
@@ -18,7 +18,7 @@ What is CloudWatch Logs?
 
 ```
 $ aws logs create-log-group \
---log-group-name calculator-awsecs-logs
+--log-group-name myproject-ecs-logs
 ```
 
 ### Step 1.3: Create a Network Load Balancer
@@ -30,7 +30,7 @@ Why?
 
 ```
 $ aws elbv2 create-load-balancer \
---name calculator-awsecs-nlb \
+--name myproject-ecs-nlb \
 --scheme internet-facing \
 --type network \
 --subnets subnet-07c8c59e404042290 subnet-031895c836de1c0cb
@@ -42,7 +42,7 @@ Replace:
 
 ```
 $ aws elbv2 create-target-group \
---name calculator-awsecs-targetgroup \
+--name myproject-ecs-targetgroup \
 --port 8080 \
 --protocol TCP \
 --target-type ip \
@@ -61,8 +61,8 @@ Replace:
 
 ```
 $ aws elbv2 create-listener \
---default-actions TargetGroupArn=arn:aws:elasticloadbalancing:ap-southeast-1:486051038643:targetgroup/calculator-awsecs-targetgroup/ac7b2d26215b386d,Type=forward \
---load-balancer-arn arn:aws:elasticloadbalancing:ap-southeast-1:486051038643:loadbalancer/net/calculator-awsecs-nlb/2749eba949a7bb50 \
+--default-actions TargetGroupArn=arn:aws:elasticloadbalancing:ap-southeast-1:486051038643:targetgroup/myproject-ecs-targetgroup/ac7b2d26215b386d,Type=forward \
+--load-balancer-arn arn:aws:elasticloadbalancing:ap-southeast-1:486051038643:loadbalancer/net/myproject-ecs-nlb/2749eba949a7bb50 \
 --port 80 \
 --protocol TCP
 ```
